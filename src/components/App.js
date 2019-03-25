@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Header from './Header';
+import Sidebar from './Sidebar';
 
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   html, body, h1, h2, h3, h4, h5, h6 {
@@ -18,12 +19,21 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const Main = styled.main`
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+`;
+
 class App extends Component {
   render() {
     return (
       <div className="App">
         <GlobalStyle />
         <Header />
+        <Main>
+          <Sidebar />
+        </Main>
       </div>
     );
   }

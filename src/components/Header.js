@@ -34,7 +34,7 @@ class Header extends Component {
       <HeaderBox>
         <LogoBox>
           <Logo src={IconTerminal} alt="Terminal" />
-          <span>Console</span>
+          <span>iConsole</span>
         </LogoBox>
       </HeaderBox>
     );
