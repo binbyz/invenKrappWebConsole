@@ -10,6 +10,7 @@ import {
   Logging,
   StatusBar,
   ProcessBlock,
+  LogPane,
   LogTable,
   LogLine,
   LogText
@@ -20,7 +21,7 @@ class LogContainer extends PureComponent {
     const renderLogSplit = (logs) => {
       return logs.map((l, idx) => {
         let _key = idx + 1;
-        
+
         return (
           <tr key={_key}>
             <LogLine>{_key}</LogLine>
@@ -37,11 +38,13 @@ class LogContainer extends PureComponent {
           <SubTitle>{this.props.subtitle}</SubTitle>
         </TitleBox>
         <Logging>
-          <LogTable>
-            <tbody>
-              {renderLogSplit(this.props.logs)}
-            </tbody>
-          </LogTable>
+          <LogPane>
+            <LogTable>
+              <tbody>
+                {renderLogSplit(this.props.logs)}
+              </tbody>
+            </LogTable>
+          </LogPane>
         </Logging>
         <StatusBar>
           {this.props.process && <ProcessBlock icon={ProcessBlockIcon} />}

@@ -56,10 +56,19 @@ export const ProcessBlock = styled.span`
   height: 30px;
 `;
 
+export const LogPane = styled.div`
+  width: 100%;
+  height: 713px;
+  max-height: 713px;
+  min-height: 713px;
+  overflow: scroll;
+`;
+
 export const LogTable = styled.table`
   tab-size: 8;
   border-spacing: 0;
   border-collapse: collapse;
+  width: 100%;
 `;
 
 export const LogLine = styled.td`
