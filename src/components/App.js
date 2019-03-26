@@ -19,8 +19,8 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', 'Noto Sans KR', 'Open Sans', sans-serif;
   }
   #root, .App { height: 100%; }
-  #root aside > div:nth-child(5) {
-    margin-top: 150px;
+  #root aside > div:nth-child(6) {
+    margin-top: 100px;
   }
 `;
 

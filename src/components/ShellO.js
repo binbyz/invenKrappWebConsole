@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Command = styled.div`
   text-align: center;
-  margin: 40px auto;
+  margin: 20px auto;
   padding: 10px;
   width: 100px;
   box-sizing: border-box;
@@ -18,6 +18,10 @@ const BrowserCommand = styled(Command)`
   margin: 5px auto;
   width: 60%;
   padding: 0px;
+  
+  &:hover {
+    background-color: #004881;
+  }
 `;
 
 const CommandIcon = styled.img`

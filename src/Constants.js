@@ -23,6 +23,11 @@ export const SIDEBAR_EXECUTION = [
     command    : "profileoff"
   },
   {
+    namespace  : "vagrant.inven.krapp",
+    description: ".env",
+    command    : "dotenv"
+  },
+  {
     namespace  : "browser.blank",
     description: "iConsole Repo",
     command    : "gitlab-iconsole",
