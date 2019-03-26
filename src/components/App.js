@@ -12,17 +12,24 @@ const GlobalStyle = createGlobalStyle`
   html, body {
     width: 100%;
     height: 100%;
+    overflow: hidden;
   }
   body {
     font-size: 12px;
     font-family: 'Roboto', 'Noto Sans KR', 'Open Sans', sans-serif;
   }
+  #root, .App { height: 100%; }
 `;
 
 const Main = styled.main`
   overflow: hidden;
   width: 100%;
   height: 100%;
+`;
+
+const Content = styled.article`
+  float: right;
+  width: calc(100% - 200px);
 `;
 
 class App extends Component {
@@ -33,6 +40,9 @@ class App extends Component {
         <Header />
         <Main>
           <Sidebar />
+          <Content>
+
+          </Content>
         </Main>
       </div>
     );
