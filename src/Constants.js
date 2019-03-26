@@ -24,7 +24,7 @@ export const SIDEBAR_EXECUTION = [
   },
   {
     namespace  : "vagrant.inven.krapp",
-    description: ".env",
+    description: "Edit .env",
     command    : "dotenv"
   },
   {
