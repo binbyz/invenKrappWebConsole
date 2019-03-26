@@ -22,11 +22,13 @@ class App extends Component {
             <LogContainer 
               title="access.log"
               icon="access.log.svg"
+              process={true}
               subtitle="/var/log/nginx/access.log" />
 
             <LogContainer 
               title="error.log"
               icon="error.log.svg"
+              process={true}
               subtitle="/var/log/nginx/error.log"
               />
           </Content>
