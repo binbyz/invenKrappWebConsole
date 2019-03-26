@@ -76,6 +76,7 @@ export const LogLine = styled.td`
   text-align: right;
   color: rgba(27,31,35,.3);
   width: 70px;
+  user-select: none;
 `;
 
 export const LogText = styled.td`
