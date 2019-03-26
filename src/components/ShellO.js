@@ -49,9 +49,9 @@ const BrowserText = styled(Text)`
 
 class ShellO extends Component {
 
-  componentWillMount() {
-    console.log(this.props.data);
-  }
+  // componentWillMount() {
+  //   console.log(this.props.data);
+  // }
 
   render() {
     const getIconPath = (data) => {

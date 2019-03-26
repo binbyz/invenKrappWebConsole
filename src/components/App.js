@@ -11,6 +11,166 @@ import {
 } from './Global.sc';
 
 class App extends Component {
+  
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isProcess: false,
+      logs: {
+        nginx: {
+          access: [
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          ],
+          error : [
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+            "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+          ]
+        }
+      }
+    };
+  }
+
   render() {
     return (
       <div className="App">
@@ -22,13 +182,15 @@ class App extends Component {
             <LogContainer 
               title="access.log"
               icon="access.log.svg"
-              process={true}
+              process={this.state.isProcess}
+              logs={this.state.logs.nginx.access}
               subtitle="/var/log/nginx/access.log" />
 
             <LogContainer 
               title="error.log"
               icon="error.log.svg"
-              process={true}
+              process={this.state.isProcess}
+              logs={this.state.logs.nginx.error}
               subtitle="/var/log/nginx/error.log"
               />
           </Content>
