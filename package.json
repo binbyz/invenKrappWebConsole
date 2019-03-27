@@ -6,7 +6,9 @@
     "react-scripts": "2.1.8"
   },
   "dependencies": {
+    "atob": "^2.1.2",
     "react": "^16.8.5",
+    "react-addons-update": "^15.6.2",
     "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.8.5",
     "styled-components": "^4.2.0",

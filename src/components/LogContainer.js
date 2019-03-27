@@ -13,6 +13,7 @@ import {
   ProcessBlock,
   LogTable,
   LogLine,
+  LogNumber,
   LogText
 } from './LogContainer.sc';
 
@@ -26,7 +27,7 @@ class LogContainer extends PureComponent {
   }
 
   handleScrollbarUpdate() {
-    // console.log(this.scrollbar.scrollToBottom());
+    console.log(this.scrollbar.scrollToBottom());
   }
 
   render() { 
@@ -35,10 +36,10 @@ class LogContainer extends PureComponent {
         let _key = idx + 1;
 
         return (
-          <tr key={_key}>
-            <LogLine>{_key}</LogLine>
+          <LogLine key={_key}>
+            <LogNumber>{_key}</LogNumber>
             <LogText>{l}</LogText>
-          </tr>
+          </LogLine>
         );
       });
     };

@@ -71,16 +71,24 @@ export const LogTable = styled.table`
   width: 100%;
 `;
 
-export const LogLine = styled.td`
+export const LogLine = styled.tr`
+  &:nth-child(2n) {
+    background-color: #eee;
+  }
+`;
+
+export const LogNumber = styled.td`
   font-family: Consolas;
   text-align: right;
+  padding-right: 20px;
   color: rgba(27,31,35,.3);
-  width: 70px;
+  width: 20px;
   user-select: none;
+  background-color: #FFF !important;
 `;
 
 export const LogText = styled.td`
   font-family: Consolas;
-  font-size: 120%;
-  text-indent: 20px;
+  font-size: 110%;
+  padding: 10px;
 `;

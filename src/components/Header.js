@@ -28,6 +28,10 @@ class Header extends Component {
           return (
             <WebSocketStatusText icon={IconComplete}>서버({event.target.url})와 연결되었습니다.</WebSocketStatusText>
           );
+        case 'close':
+          return (
+            <WebSocketStatusText icon={IconError}>서버({event.target.url})를 연결할 수 없습니다.</WebSocketStatusText>
+          );
         default:
           return (
             <WebSocketStatusText icon={IconComplete}>서버와 연결을 준비 중입니다.</WebSocketStatusText>
