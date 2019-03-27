@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import IconTerminal from '../assets/terminal.svg';
+import IconComplete from '../assets/complete.svg';
+import IconError from '../assets/error.svg';
 import {
   HeaderBox,
   LogoBox,
@@ -20,14 +22,16 @@ class Header extends Component {
       switch (event.type) {
         case 'error':
           return (
-            <WebSocketStatusText icon={require('../assets/error.svg')}>서버({event.target.url}) 연결을 실패하였습니다.</WebSocketStatusText>
+            <WebSocketStatusText icon={IconError}>서버({event.target.url}) 연결을 실패하였습니다.</WebSocketStatusText>
           );
         case 'open':
           return (
-            <WebSocketStatusText icon={require('../assets/complete.svg')}>서버({event.target.url})와 연결되었습니다.</WebSocketStatusText>
+            <WebSocketStatusText icon={IconComplete}>서버({event.target.url})와 연결되었습니다.</WebSocketStatusText>
           );
         default:
-          return <WebSocketStatusText icon={require('../assets/complete.svg')}>서버와 연결을 준비 중입니다.</WebSocketStatusText>;
+          return (
+            <WebSocketStatusText icon={IconComplete}>서버와 연결을 준비 중입니다.</WebSocketStatusText>
+          );
       }
     }
   }
