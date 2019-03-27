@@ -1,3 +1,5 @@
+export const APP_NAME = "iConsole";
+
 /**
  * WebSocket Settings
  */
