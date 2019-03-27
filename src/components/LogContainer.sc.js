@@ -81,6 +81,6 @@ export const LogLine = styled.td`
 
 export const LogText = styled.td`
   font-family: Consolas;
-  font-size: 110%;
+  font-size: 120%;
   text-indent: 20px;
 `;

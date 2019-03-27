@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Scrollbars } from 'react-custom-scrollbars';
 
 import ProcessBlockIcon from '../assets/load-block-white.svg';
 
@@ -10,13 +11,24 @@ import {
   Logging,
   StatusBar,
   ProcessBlock,
-  LogPane,
   LogTable,
   LogLine,
   LogText
 } from './LogContainer.sc';
 
 class LogContainer extends PureComponent {
+  scrollbar;
+
+  constructor(props) {
+    super(props);
+    
+    this.handleScrollbarUpdate = this.handleScrollbarUpdate.bind(this);
+  }
+
+  handleScrollbarUpdate() {
+    // console.log(this.scrollbar.scrollToBottom());
+  }
+
   render() { 
     const renderLogSplit = (logs) => {
       return logs.map((l, idx) => {
@@ -38,13 +50,17 @@ class LogContainer extends PureComponent {
           <SubTitle>{this.props.subtitle}</SubTitle>
         </TitleBox>
         <Logging>
-          <LogPane>
+          <Scrollbars 
+            ref={(ref) => { this.scrollbar = ref; }}
+            onUpdate={this.handleScrollbarUpdate}
+            autoHide
+            autoHideTimeout={2000}>
             <LogTable>
               <tbody>
                 {renderLogSplit(this.props.logs)}
               </tbody>
             </LogTable>
-          </LogPane>
+          </Scrollbars>
         </Logging>
         <StatusBar>
           {this.props.process && <ProcessBlock icon={ProcessBlockIcon} />}

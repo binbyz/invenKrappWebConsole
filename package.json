@@ -7,8 +7,10 @@
   },
   "dependencies": {
     "react": "^16.8.5",
+    "react-custom-scrollbars": "^4.2.1",
     "react-dom": "^16.8.5",
-    "styled-components": "^4.2.0"
+    "styled-components": "^4.2.0",
+    "websocket": "^1.0.28"
   },
   "scripts": {
     "start": "react-scripts start",

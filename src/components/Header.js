@@ -1,34 +1,37 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 
 import IconTerminal from '../assets/terminal.svg';
-
-const HeaderBox = styled.header`
-  background: #003056;
-  height: 50px;
-  box-sizing: border-box;
-  cursor: default;
-`;
-
-const LogoBox = styled.div`
- float: left;
- width: 200px;
- height: 100%;
- text-align: center;
- background-color: #003C6C;
- color: #FFF;
- font-size: 150%;
- padding-top: 8px;
- box-sizing: border-box;
-`;
-
-const Logo = styled.img`
-  width: 30px;
-  vertical-align: -7px;
-  margin-right: 10px;
-`;
+import {
+  HeaderBox,
+  LogoBox,
+  Logo,
+  WebSocketStatusText
+} from './Header.sc';
 
 class Header extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleWebSockerEvent = this.handleWebSockerEvent.bind(this);
+  }
+
+  handleWebSockerEvent(event) {
+    if (typeof event === 'object') {
+      switch (event.type) {
+        case 'error':
+          return (
+            <WebSocketStatusText icon={require('../assets/error.svg')}>서버({event.target.url}) 연결을 실패하였습니다.</WebSocketStatusText>
+          );
+        case 'open':
+          return (
+            <WebSocketStatusText icon={require('../assets/complete.svg')}>서버({event.target.url})와 연결되었습니다.</WebSocketStatusText>
+          );
+        default:
+          return <WebSocketStatusText icon={require('../assets/complete.svg')}>서버와 연결을 준비 중입니다.</WebSocketStatusText>;
+      }
+    }
+  }
+
   render() {
     return (
       <HeaderBox>
@@ -36,6 +39,8 @@ class Header extends Component {
           <Logo src={IconTerminal} alt="Terminal" />
           <span>iConsole</span>
         </LogoBox>
+
+        <div>{this.handleWebSockerEvent(this.props.webSocketEvent)}</div>
       </HeaderBox>
     );
   }

@@ -1,4 +1,12 @@
 /**
+ * WebSocket Settings
+ */
+export const WS_CONNECT_PROTOCOL = 'ws';
+export const WS_CONNECT_HOST = 'localhost';
+export const WS_CONNECT_PORT = 8999;
+export const WS_CONNECT_PATH = '/';
+
+/**
  * 사이드바 상수 선언
  */
 export const SIDEBAR_EXECUTION = [
