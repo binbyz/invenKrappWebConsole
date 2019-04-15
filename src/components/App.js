@@ -10,7 +10,8 @@ import {
   WS_CONNECT_PROTOCOL,
   WS_CONNECT_HOST,
   WS_CONNECT_PORT,
-  WS_CONNECT_PATH
+  WS_CONNECT_PATH,
+  APP_LOG_MAX_LINE
 } from '../Constants';
 
 import {
@@ -43,51 +44,69 @@ class App extends Component {
     webSocketEvent: {}
   };
 
+  constructor(props) {
+    super(props);
+
+    this.logReducer = this.logReducer.bind(this);
+    this.logReformatter = this.logReformatter.bind(this);
+  }
+
+  async logReducer(ns) {
+    if ((this.state.nginx[ns].length - APP_LOG_MAX_LINE) >= APP_LOG_MAX_LINE) {
+      let bulk = [...this.state.nginx[ns]].splice( Math.ceil(APP_LOG_MAX_LINE/2) );
+
+      this.setState({
+        nginx: update(this.state.nginx, {
+          [ns]: { $set: bulk }
+        })
+      });
+    }
+  }
+
+  async logReformatter(chunk) {
+    let t = /STATUS:(?:(?!200)\d+)/gm.exec(chunk);
+    
+    if (t instanceof Array) {
+      chunk = chunk.replace(t[0], `<em class="emphasis-error">${t[0]}</em>`);
+    }
+
+    return chunk;
+  }
+
   componentDidMount() {
     let w3c = WebSocket.w3cwebsocket;
     this.client = new w3c(`${WS_CONNECT_PROTOCOL}://${WS_CONNECT_HOST}:${WS_CONNECT_PORT}${WS_CONNECT_PATH}`);
 
-    /**
-     * onError
-     */
     this.client.onerror = (event) => {
       this.setState({
         webSocketEvent: event
       });
     };
 
-    /**
-     * onClose
-     */
     this.client.onclose = (event) => {
       this.setState({
         webSocketEvent: event
       });
     };
 
-    /**
-     * onOpen
-     */
     this.client.onopen = (event) => {
       this.setState({
         webSocketEvent: event
       });
     };
 
-    /**
-     * onMessage
-     */
-    this.client.onmessage = (event) => {
+    this.client.onmessage = async (event) => {
       if (typeof event === 'object' && 'data' in event && typeof event.data === 'string') {
-        let recv = (encodedData => {
-          let t = JSON.parse(atob(atob(encodedData)));
-          t.namespace = atob(atob(t.namespace));
-          t.chunk = atob(atob(t.chunk));
-          return t;
-        })(event.data);
+        let recv = JSON.parse(atob(atob(event.data)));
 
         if (recv.namespace === 'nginx.access' || recv.namespace === 'nginx.error') {
           let t = recv.namespace.split('.');
+
+          // reduce log
+          await this.logReducer(t[1]);
+
+          // reform log message
+          recv.chunk = await this.logReformatter(recv.chunk);
 
           this.setState({
             nginx: update(this.state.nginx, {
@@ -108,18 +127,12 @@ class App extends Component {
           <Sidebar />
           <Content>
             <LogContainer 
-              title="access.log"
-              icon="access.log.svg"
-              process={this.state.isProcess}
-              logs={this.state.nginx.access}
-              subtitle="/var/log/nginx/access.log" />
+              title="access.log" icon="access.log.svg" process={this.state.isProcess}
+              logs={this.state.nginx.access} subtitle="/var/log/nginx/access.log" />
 
             <LogContainer 
-              title="error.log"
-              icon="error.log.svg"
-              process={this.state.isProcess}
-              logs={this.state.nginx.error}
-              subtitle="/var/log/nginx/error.log" />
+              title="error.log" icon="error.log.svg" process={this.state.isProcess}
+              logs={this.state.nginx.error} subtitle="/var/log/nginx/error.log" />
           </Content>
         </Main>
       </div>

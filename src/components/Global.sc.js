@@ -18,6 +18,11 @@ export const GlobalStyle = createGlobalStyle`
   #root aside > div:nth-child(6) {
     margin-top: 100px;
   }
+
+  .emphasis-error {
+    color: #e90000;
+    font-weight: bold;
+  }
 `;
 
 export const Main = styled.main`

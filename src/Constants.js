@@ -1,4 +1,5 @@
 export const APP_NAME = "iConsole";
+export const APP_LOG_MAX_LINE = 5000;
 
 /**
  * WebSocket Settings

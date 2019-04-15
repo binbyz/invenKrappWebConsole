@@ -27,7 +27,7 @@ class LogContainer extends PureComponent {
   }
 
   handleScrollbarUpdate() {
-    console.log(this.scrollbar.scrollToBottom());
+    this.scrollbar.scrollToBottom();
   }
 
   render() { 
@@ -38,7 +38,7 @@ class LogContainer extends PureComponent {
         return (
           <LogLine key={_key}>
             <LogNumber>{_key}</LogNumber>
-            <LogText>{l}</LogText>
+            <LogText dangerouslySetInnerHTML={{ __html: l }}></LogText>
           </LogLine>
         );
       });
