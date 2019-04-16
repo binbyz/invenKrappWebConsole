@@ -19,9 +19,27 @@ export const GlobalStyle = createGlobalStyle`
     margin-top: 100px;
   }
 
-  .emphasis-error {
-    color: #e90000;
+  .emphasis {
+    display: inline-block;
     font-weight: bold;
+    font-style: normal;
+    white-space: pre-wrap;
+    word-wrap: normal;
+    word-break: keep-all;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-size: 90%;
+  }
+  .emphasis.error {
+    color: #c0341d;
+    background-color: #fbe5e1;
+  }
+  .emphasis.helper {
+    padding-right: 16px;
+    background: url(${require('../assets/icons8-help.svg')}) right 50% no-repeat;
+    background-size: 15px;
+    border-bottom: 1px dashed #929292;
+    cursor: pointer;
   }
 `;
 

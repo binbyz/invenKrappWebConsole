@@ -4,6 +4,7 @@ import WebSocket from 'websocket';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import LogContainer from './LogContainer';
+import LogReformatter from './LogReformatter';
 import update from 'react-addons-update';
 
 import {
@@ -64,13 +65,7 @@ class App extends Component {
   }
 
   async logReformatter(chunk) {
-    let t = /STATUS:(?:(?!200)\d+)/gm.exec(chunk);
-    
-    if (t instanceof Array) {
-      chunk = chunk.replace(t[0], `<em class="emphasis-error">${t[0]}</em>`);
-    }
-
-    return chunk;
+    return <LogReformatter chunk={chunk} />
   }
 
   componentDidMount() {

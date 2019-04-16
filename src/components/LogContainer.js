@@ -38,7 +38,7 @@ class LogContainer extends PureComponent {
         return (
           <LogLine key={_key}>
             <LogNumber>{_key}</LogNumber>
-            <LogText dangerouslySetInnerHTML={{ __html: l }}></LogText>
+            <LogText>{l}</LogText>
           </LogLine>
         );
       });

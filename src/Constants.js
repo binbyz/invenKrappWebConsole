@@ -1,5 +1,6 @@
 export const APP_NAME = "iConsole";
 export const APP_LOG_MAX_LINE = 5000;
+export const APP_HELPER_STATUS_CODE_URL = "https://developer.mozilla.org/ko/docs/Web/HTTP/Status/%query%";
 
 /**
  * WebSocket Settings
