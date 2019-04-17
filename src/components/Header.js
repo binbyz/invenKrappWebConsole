@@ -8,7 +8,7 @@ import {
   LogoBox,
   Logo,
   WebSocketStatusText
-} from './Header.sc';
+} from './styles/Header.sc';
 
 class Header extends Component {
 

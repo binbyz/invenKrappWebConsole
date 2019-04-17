@@ -5,7 +5,7 @@ import ShellO from './ShellO';
 
 import {
   Aside
-} from './Sidebar.sc';
+} from './styles/Sidebar.sc';
 
 class Sidebar extends Component {
 

@@ -15,7 +15,7 @@ import {
   LogLine,
   LogNumber,
   LogText
-} from './LogContainer.sc';
+} from './styles/LogContainer.sc';
 
 class LogContainer extends PureComponent {
   scrollbar;

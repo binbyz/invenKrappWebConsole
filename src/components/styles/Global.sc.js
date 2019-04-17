@@ -36,7 +36,7 @@ export const GlobalStyle = createGlobalStyle`
   }
   .emphasis.helper {
     padding-right: 16px;
-    background: url(${require('../assets/icons8-help.svg')}) right 50% no-repeat;
+    background: url(${require('../../assets/icons8-help.svg')}) right 50% no-repeat;
     background-size: 15px;
     border-bottom: 1px dashed #929292;
     cursor: pointer;

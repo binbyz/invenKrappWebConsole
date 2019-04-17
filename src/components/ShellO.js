@@ -7,7 +7,7 @@ import {
   BrowserIcon,
   Text,
   BrowserText
-} from './ShellO.sc';
+} from './styles/ShellO.sc';
 
 class ShellO extends Component {
   render() {

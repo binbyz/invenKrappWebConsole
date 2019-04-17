@@ -19,7 +19,7 @@ import {
   GlobalStyle,
   Main,
   Content
-} from './Global.sc';
+} from './styles/Global.sc';
 
 class App extends Component {
   /**
