@@ -22,14 +22,8 @@ import {
 } from './styles/Global.sc';
 
 class App extends Component {
-  /**
-   * WebSocket Client
-   */
-  client;
-
-  /**
-   * React State
-   */
+  client; // websocket clinets
+  _processHideTimer;
   state = {
     /**
      * 서버로 데이터를 요청 또는 전송 받는 중일 때
@@ -91,6 +85,8 @@ class App extends Component {
     };
 
     this.client.onmessage = async (event) => {
+      this.setState({ isProcess: true });
+
       if (typeof event === 'object' && 'data' in event && typeof event.data === 'string') {
         let recv = JSON.parse(atob(atob(event.data)));
 
@@ -110,6 +106,15 @@ class App extends Component {
           });
         }
       }
+
+
+      if (this._processHideTimer) {
+        clearTimeout(this._processHideTimer);
+      }
+
+      this._processHideTimer = setTimeout(() => {
+        this.setState({ isProcess: false });
+      }, 1300);
     };
   }
 

@@ -91,4 +91,5 @@ export const LogText = styled.td`
   font-family: Consolas;
   font-size: 110%;
   padding: 10px;
+  word-break: break-all;
 `;

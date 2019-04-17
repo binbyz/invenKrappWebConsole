@@ -57,7 +57,7 @@ class LogContainer extends PureComponent {
           </Scrollbars>
         </Logging>
         <StatusBar>
-          {this.props.process && <ProcessBlock icon={ProcessBlockIcon} />}
+          {true === this.props.process && <ProcessBlock icon={ProcessBlockIcon} />}
         </StatusBar>
       </Section>
     );
