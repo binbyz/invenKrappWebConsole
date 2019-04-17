@@ -36,7 +36,7 @@ class LogContainer extends PureComponent {
         let _key = idx + 1;
 
         return (
-          <LogLine key={_key}>
+          <LogLine key={idx}>
             <LogNumber>{_key}</LogNumber>
             <LogText>{l}</LogText>
           </LogLine>

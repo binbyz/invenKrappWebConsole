@@ -16,7 +16,7 @@ class ShellO extends Component {
     }
     
     return (
-      <div>
+      <React.Fragment>
         {
           (this.props.data.namespace === 'vagrant.inven.krapp') ? (
             <Command>
@@ -30,7 +30,7 @@ class ShellO extends Component {
             </BrowserCommand>
           )
         }
-      </div>
+      </React.Fragment>
     );
   };
 }

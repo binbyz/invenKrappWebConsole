@@ -45,10 +45,10 @@ class Header extends Component {
       <HeaderBox>
         <LogoBox>
           <Logo src={IconTerminal} alt="Terminal" />
-          <span>iConsole</span>
+          <React.Fragment>iConsole</React.Fragment>
         </LogoBox>
 
-        <div>{this.handleWebSockerEvent(this.props.webSocketEvent)}</div>
+        <React.Fragment>{this.handleWebSockerEvent(this.props.webSocketEvent)}</React.Fragment>
       </HeaderBox>
     );
   }
