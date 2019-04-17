@@ -41,6 +41,13 @@ export const GlobalStyle = createGlobalStyle`
     border-bottom: 1px dashed #929292;
     cursor: pointer;
   }
+  .emphasis.stronger {
+    background-color: #2f2f2f;
+    color: #FFF;
+  }
+  .emphasis.method {
+    margin-left: 5px;
+  }
 `;
 
 export const Main = styled.main`

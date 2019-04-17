@@ -20,13 +20,7 @@ import {
 class LogContainer extends PureComponent {
   scrollbar;
 
-  constructor(props) {
-    super(props);
-    
-    this.handleScrollbarUpdate = this.handleScrollbarUpdate.bind(this);
-  }
-
-  handleScrollbarUpdate() {
+  componentDidUpdate() {
     this.scrollbar.scrollToBottom();
   }
 
@@ -53,7 +47,6 @@ class LogContainer extends PureComponent {
         <Logging>
           <Scrollbars 
             ref={(ref) => { this.scrollbar = ref; }}
-            onUpdate={this.handleScrollbarUpdate}
             autoHide
             autoHideTimeout={2000}>
             <LogTable>

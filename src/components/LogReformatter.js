@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import ReactHtmlParser from 'react-html-parser';
 
 import {
   APP_HELPER_STATUS_CODE_URL
@@ -34,13 +36,12 @@ class LogReformatter extends Component {
     };
 
     // reference: https://developer.mozilla.org/ko/docs/Web/HTTP/Methods
-    // @todo React.Element를 내부적으로 렌더링 할 수 있는 방법!?
-    // eslint-disable-next-line
+    // @todo React.Element를 내부적으로 좀 더 효과적인 코드로 렌더링 할 수 있는 방법
     const httpMethodHelper = (chunk) => {
       if (chunk instanceof Array) {
         // chunk = chunk.map(reactElement => reactElement.props.children);
-        chunk = (chunk) => <React.Fragment>{chunk}</React.Fragment>;
-        console.info('React.element to String?', chunk);
+        // chunk = ((chunk) => <React.Fragment>{chunk}</React.Fragment>)(chunk);
+        chunk = renderToStaticMarkup(chunk);
       }
 
       let r = /(GET|HEAD|POST|PUT|DELETE|CONNECT|OPTIONS|TRACE|PATCH)/gi;
@@ -49,12 +50,11 @@ class LogReformatter extends Component {
 
       if (t instanceof Array) {
         parts = chunk.split(t[0]);
-        console.log('is captured status method?', parts);
-        parts.splice(1, 0, (<em className="emphasis stronger">{t[0]}</em>));
+        parts.splice(1, 0, (<em className="emphasis stronger method">{t[0]}</em>));
       }
 
       for (let i = 0; i < parts.length; i++) {
-        parts[i] = <span key={i}>{parts[i]}</span>;
+        parts[i] = <React.Fragment key={i}>{ (i === 1) ? parts[i] : ReactHtmlParser(parts[i]) }</React.Fragment>;
       }
 
       return parts;
@@ -62,7 +62,7 @@ class LogReformatter extends Component {
 
     return (
       <React.Fragment>
-        {(statusHelper(this.props.chunk))}
+        {httpMethodHelper(statusHelper(this.props.chunk))}
       </React.Fragment>
     );
   }
