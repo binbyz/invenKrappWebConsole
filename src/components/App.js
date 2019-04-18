@@ -44,6 +44,7 @@ class App extends Component {
 
     this.logReducer = this.logReducer.bind(this);
     this.logReformatter = this.logReformatter.bind(this);
+    this.sendMessage = this.sendMessage.bind(this);
   }
 
   async logReducer(ns) {
@@ -61,6 +62,25 @@ class App extends Component {
   async logReformatter(chunk) {
     return <LogReformatter chunk={chunk} />
   }
+
+  async sendMessage(bulk, callback = () => {}) {
+    if (this.client.readyState === this.client.OPEN) {
+      this.client.send(bulk);
+      
+      if (typeof callback === 'function') {
+        callback();
+      }
+    } else {
+      console.error('-- async func.sendMessage');
+      console.error(this.client.readyState);
+      console.error(this.client);
+    }
+  }
+
+  // componentWillUpdate(nextProps, nextState) {
+  //   console.error('nextState', nextState);
+  //   console.error('nextProps', nextProps);
+  // }
 
   componentDidMount() {
     let w3c = WebSocket.w3cwebsocket;
@@ -124,7 +144,7 @@ class App extends Component {
         <GlobalStyle />
         <Header webSocketEvent={this.state.webSocketEvent} />
         <Main>
-          <Sidebar />
+          <Sidebar sendMessage={this.sendMessage} />
           <Content>
             <LogContainer 
               title="access.log" icon="access.log.svg" process={this.state.isProcess}

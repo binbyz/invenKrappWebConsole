@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { SIDEBAR_EXECUTION as ShellOs } from '../Constants';
+import { SIDEBAR_EXECUTION_LIST as ShellOs } from '../Constants';
 import ShellO from './ShellO';
 
 import {
@@ -13,7 +13,8 @@ class Sidebar extends Component {
     const renderShellOs = () => {
       return ShellOs.map((o, idx) => {
         return (
-          <ShellO key={(idx + 1)} data={o} />
+          <ShellO key={idx} data={o} 
+                  sendMessage={this.props.sendMessage} />
         );
       });
     };

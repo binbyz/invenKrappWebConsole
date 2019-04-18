@@ -8,7 +8,7 @@ import {
 
 class LogReformatter extends Component {
   render() {
-    const _browserStatusHelper = (statusCode) => {
+    const handleBrowserStatusHelper = (statusCode) => {
       let t = /\d+/.exec(statusCode);
       
       if (t instanceof Array && typeof window === 'object') {
@@ -25,7 +25,7 @@ class LogReformatter extends Component {
         parts = chunk.split(/"STATUS:(?:(?!200))\d+"/gi);
         parts.splice(1, 0, (<em className="emphasis error helper" 
                                 title="클릭시 상태코드 정보페이지로 이동합니다"
-                                onClick={() => { _browserStatusHelper(t[0]) }}>{t[0]}</em>));
+                                onClick={() => { handleBrowserStatusHelper(t[0]) }}>{t[0]}</em>));
       }
 
       for (let i = 0; i < parts.length; i++) {
