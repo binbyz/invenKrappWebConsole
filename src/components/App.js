@@ -3,6 +3,7 @@ import WebSocket from 'websocket';
 
 import Header from './Header';
 import Sidebar from './Sidebar';
+import Console from './Console'
 import LogContainer from './LogContainer';
 import LogReformatter from './LogReformatter';
 import update from 'react-addons-update';
@@ -25,26 +26,24 @@ class App extends Component {
   client; // websocket clinets
   _processHideTimer;
   state = {
-    /**
-     * 서버로 데이터를 요청 또는 전송 받는 중일 때
-     */
-    isProcess: false,
-    /**
-     * 로그(namespace)
-     */
+    // 서버로 데이터를 요청 또는 전송 받는 중일 때
+    iconVisual: false,
+    // 로그(namespace)
     nginx: { access: [], error : [] },
-    /**
-     * 헤더의 현재 웹 소켓 상태를 출력해 줄 수 있도록
-     */
-    webSocketEvent: {}
+    // 헤더의 현재 웹 소켓 상태를 출력해 줄 수 있도록
+    webSocketEvent: {},
+    // 콘솔 로그
+    consoleLogs: [],
+    // 터미널 실행 후 받은 데이터
+    stdout: {}
   };
 
   constructor(props) {
     super(props);
 
-    this.logReducer = this.logReducer.bind(this);
+    this.logReducer     = this.logReducer.bind(this);
     this.logReformatter = this.logReformatter.bind(this);
-    this.sendMessage = this.sendMessage.bind(this);
+    this.sendMessage    = this.sendMessage.bind(this);
   }
 
   async logReducer(ns) {
@@ -71,9 +70,12 @@ class App extends Component {
         callback();
       }
     } else {
-      console.error('-- async func.sendMessage');
-      console.error(this.client.readyState);
-      console.error(this.client);
+      console.error(`[error] Can't send data`)
+      console.error(this.client.readyState)
+      console.error(this.client)
+
+      // TODO: AUTO RECONNECT
+      window.alert("서버와의 연결이 끊겼습니다.\n\n새로고침 해주세요.");
     }
   }
 
@@ -105,11 +107,12 @@ class App extends Component {
     };
 
     this.client.onmessage = async (event) => {
-      this.setState({ isProcess: true });
+      this.setState({ iconVisual: true });
 
       if (typeof event === 'object' && 'data' in event && typeof event.data === 'string') {
         let recv = JSON.parse(atob(atob(event.data)));
 
+        // nginx 로그
         if (recv.namespace === 'nginx.access' || recv.namespace === 'nginx.error') {
           let t = recv.namespace.split('.');
 
@@ -124,6 +127,20 @@ class App extends Component {
               [t[1]]: { $push: [recv.chunk] }
             })
           });
+        } 
+        // 커맨드에 대한 응답 처리
+        else if (recv.namespace === 'vagrant.inven.krapp') {
+          console.log(recv)
+          this.setState({ "stdout": recv })
+          this.setState({
+            "consoleLogs": {
+              $push: [recv]
+            }
+          })
+        } 
+        // 알 수 없는 메세지
+        else {
+          console.error(`Unknown Namespace: ${recv.namespace}`, recv)
         }
       }
 
@@ -133,7 +150,7 @@ class App extends Component {
       }
 
       this._processHideTimer = setTimeout(() => {
-        this.setState({ isProcess: false });
+        this.setState({ iconVisual: false });
       }, 1300);
     };
   }
@@ -144,14 +161,15 @@ class App extends Component {
         <GlobalStyle />
         <Header webSocketEvent={this.state.webSocketEvent} />
         <Main>
+          <Console data={this.state.stdout}/>
           <Sidebar sendMessage={this.sendMessage} />
           <Content>
             <LogContainer 
-              title="access.log" icon="access.log.svg" process={this.state.isProcess}
+              title="access.log" icon="access.log.svg" process={this.state.iconVisual}
               logs={this.state.nginx.access} subtitle="/var/log/nginx/access.log" />
 
             <LogContainer 
-              title="error.log" icon="error.log.svg" process={this.state.isProcess}
+              title="error.log" icon="error.log.svg" process={this.state.iconVisual}
               logs={this.state.nginx.error} subtitle="/var/log/nginx/error.log" />
           </Content>
         </Main>

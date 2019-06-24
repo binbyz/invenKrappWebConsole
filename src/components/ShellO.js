@@ -17,7 +17,7 @@ import {
 class ShellO extends Component {
   render() {
     const getIconPath = (data) => {
-      return require('../assets/' + data.namespace + '.' + data.command + '.svg');
+      return require('../assets/' + data.namespace + '.' + data.command + '.svg')
     }
 
     const handleOpenBrowser = (link) => {
