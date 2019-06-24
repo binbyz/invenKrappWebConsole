@@ -30,7 +30,12 @@ class ShellO extends Component {
       <React.Fragment>
         {
           (this.props.data.type === SO_TYPE_CMD) ? (
-            <Command onClick={ () => this.props.sendMessage(messageMassage(this.props.data)) }>
+            <Command onClick={ 
+              () => {
+                this.props.sendMessage(messageMassage(this.props.data)) 
+                this.props.fOverlay(true)
+              }
+            }>
               <CommandIcon src={getIconPath(this.props.data)} alt={this.props.data.description} />
               <Text>{this.props.data.description}</Text>
             </Command>

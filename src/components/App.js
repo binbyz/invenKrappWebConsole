@@ -13,13 +13,15 @@ import {
   WS_CONNECT_HOST,
   WS_CONNECT_PORT,
   WS_CONNECT_PATH,
-  APP_LOG_MAX_LINE
+  APP_LOG_MAX_LINE,
+  TERMINAL_AUTO_CLOSE
 } from '../Constants';
 
 import {
   GlobalStyle,
   Main,
-  Content
+  Content,
+  Overlay
 } from './styles/Global.sc';
 
 class App extends Component {
@@ -35,15 +37,18 @@ class App extends Component {
     // 콘솔 로그
     consoleLogs: [],
     // 터미널 실행 후 받은 데이터
-    stdout: {}
+    stdout: {},
+    // 오버레이
+    overlay: false
   };
 
   constructor(props) {
     super(props);
 
-    this.logReducer     = this.logReducer.bind(this);
-    this.logReformatter = this.logReformatter.bind(this);
-    this.sendMessage    = this.sendMessage.bind(this);
+    this.logReducer     = this.logReducer.bind(this)
+    this.logReformatter = this.logReformatter.bind(this)
+    this.sendMessage    = this.sendMessage.bind(this)
+    this.handleOverlay  = this.handleOverlay.bind(this)
   }
 
   async logReducer(ns) {
@@ -130,12 +135,11 @@ class App extends Component {
         } 
         // 커맨드에 대한 응답 처리
         else if (recv.namespace === 'vagrant.inven.krapp') {
-          console.log(recv)
           this.setState({ "stdout": recv })
           this.setState({
-            "consoleLogs": {
+            "consoleLogs": update(this.state.consoleLogs, {
               $push: [recv]
-            }
+            })
           })
         } 
         // 알 수 없는 메세지
@@ -155,22 +159,42 @@ class App extends Component {
     };
   }
 
+  handleOverlay(toggle) {
+    this.setState({ overlay: !! toggle })
+  }
+
   render() {
     return (
       <div className="App">
         <GlobalStyle />
+        <Overlay overlay={this.state.overlay} />
         <Header webSocketEvent={this.state.webSocketEvent} />
         <Main>
-          <Console data={this.state.stdout}/>
-          <Sidebar sendMessage={this.sendMessage} />
+          <Console 
+            stdout={this.state.stdout} 
+            logs={this.state.consoleLogs} 
+            fOverlay={this.handleOverlay}
+            overlay={this.state.overlay} 
+            terminalAutoCloseSeconds={TERMINAL_AUTO_CLOSE} />
+
+          <Sidebar 
+            sendMessage={this.sendMessage} 
+            fOverlay={this.handleOverlay} />
+
           <Content>
             <LogContainer 
-              title="access.log" icon="access.log.svg" process={this.state.iconVisual}
-              logs={this.state.nginx.access} subtitle="/var/log/nginx/access.log" />
+              title="access.log" 
+              icon="access.log.svg" 
+              process={this.state.iconVisual}
+              logs={this.state.nginx.access} 
+              subtitle="/var/log/nginx/access.log" />
 
             <LogContainer 
-              title="error.log" icon="error.log.svg" process={this.state.iconVisual}
-              logs={this.state.nginx.error} subtitle="/var/log/nginx/error.log" />
+              title="error.log" 
+              icon="error.log.svg" 
+              process={this.state.iconVisual}
+              logs={this.state.nginx.error} 
+              subtitle="/var/log/nginx/error.log" />
           </Content>
         </Main>
       </div>

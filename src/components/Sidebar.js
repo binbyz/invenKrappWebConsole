@@ -13,7 +13,9 @@ class Sidebar extends Component {
     const renderShellOs = () => {
       return ShellOs.map((o, idx) => {
         return (
-          <ShellO key={idx} data={o} 
+          <ShellO key={idx} 
+                  data={o} 
+                  fOverlay={this.props.fOverlay}
                   sendMessage={this.props.sendMessage} />
         );
       });
