@@ -5,6 +5,7 @@ export const Section = styled.section`
   float: left;
   width: 50%;
   box-sizing: border-box;
+  height: 100%
 `;
 
 export const TitleBox = styled.div`
@@ -30,9 +31,7 @@ export const SubTitle = styled.span`
 export const Logging = styled.div`
   box-sizing: border-box;
   border-left: 1px solid #eee;
-  height: 713px;
-  min-height: 713px;
-  max-height: 713px;
+  height: calc(100% - 50px - 146px - 28px);
 `;
 
 export const StatusBar = styled.div`

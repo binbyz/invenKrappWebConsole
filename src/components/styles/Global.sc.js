@@ -74,4 +74,5 @@ export const Content = styled.article`
   float: right;
   width: calc(100% - 200px);
   min-width: 1300px;
+  height: 100%;
 `;
