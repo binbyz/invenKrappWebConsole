@@ -42,10 +42,14 @@ export const LogRows = styled.div`
   margin-bottom: 15px;
 `
 
-export const ErrorText = styled.code`
+export const ErrorText = styled.pre`
   color: #FF0000;
+  font-family: Consolas, Monaco, sans-serif;
 `
 
-export const PlainText = styled.code`
+export const PlainText = styled.pre`
   color: #FFF;
+  font-family: Consolas, Monaco, sans-serif;
+  font-size: 14px;
+  line-height: 120%;
 `

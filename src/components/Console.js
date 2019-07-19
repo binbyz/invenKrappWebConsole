@@ -34,6 +34,8 @@ export default class Console extends PureComponent {
 
   render() {
     const renderLogSplit = (logs) => {
+      let rRemoveColorCharacters = /\[[\d]+m/ig;
+      let escapeSpecial = 0x1B;
       let autoCloseSeconds = Math.floor(this.props.terminalAutoCloseSeconds / 1000)
       let doneTextStyle = {
         "color": "#f6f600",
@@ -45,11 +47,11 @@ export default class Console extends PureComponent {
       this.fCallbackAutoClose = (! String(this.props.stdout.stderr).trim().length)
                                 ? () => { this.props.fOverlay(false) }
                                 : null
-     
+
       return logs.map((log, idx) => {
         let PlainOrError = log.stderr.length 
                             ? <ErrorText>{log.stderr}</ErrorText> 
-                            : <PlainText>{log.stdout}</PlainText>
+                            : <PlainText>{log.stdout.replace(rRemoveColorCharacters, '').replace(escapeSpecial, '')}</PlainText>
 
         return (
           <LogRows key={idx}>
