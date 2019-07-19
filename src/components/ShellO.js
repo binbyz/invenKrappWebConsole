@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { SO_TYPE_CMD } from '../Constants';
+import { 
+  SO_TYPE_CMD,
+  SO_TYPE_EDITOR,
+  SO_TYPE_LINK
+} from '../Constants';
 
 import {
   Command,
@@ -29,7 +33,7 @@ class ShellO extends Component {
     return (
       <React.Fragment>
         {
-          (this.props.data.type === SO_TYPE_CMD) ? (
+          (this.props.data.type === SO_TYPE_CMD) && (
             <Command onClick={ 
               () => {
                 this.props.sendMessage(messageMassage(this.props.data)) 
@@ -39,7 +43,20 @@ class ShellO extends Component {
               <CommandIcon src={getIconPath(this.props.data)} alt={this.props.data.description} />
               <Text>{this.props.data.description}</Text>
             </Command>
-          ) : (
+          )
+        }
+
+        {
+          (this.props.data.type === SO_TYPE_EDITOR) && (
+            <Command onClick={this.props.openEnvEditor()}>
+              <CommandIcon src={getIconPath(this.props.data)} alt={this.props.data.description} />
+              <Text>{this.props.data.description}</Text>
+            </Command>
+          )
+        }
+
+        {
+          (this.props.data.type === SO_TYPE_LINK) && (
             <BrowserCommand onClick={ () => handleOpenBrowser(this.props.data.link) }>
               <BrowserIcon src={getIconPath(this.props.data)} alt={this.props.data.description} />
               <BrowserText>{this.props.data.description}</BrowserText>

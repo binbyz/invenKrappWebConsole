@@ -16,6 +16,7 @@ class Sidebar extends Component {
           <ShellO key={idx} 
                   data={o} 
                   fOverlay={this.props.fOverlay}
+                  openEnvEditor={this.props.openEnvEditor}
                   sendMessage={this.props.sendMessage} />
         );
       });

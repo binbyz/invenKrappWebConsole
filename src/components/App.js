@@ -8,6 +8,8 @@ import LogContainer from './LogContainer';
 import LogReformatter from './LogReformatter';
 import update from 'react-addons-update';
 
+import EnvEditor from './EnvEditor'
+
 import {
   WS_CONNECT_PROTOCOL,
   WS_CONNECT_HOST,
@@ -39,7 +41,9 @@ class App extends Component {
     // 터미널 실행 후 받은 데이터
     stdout: {},
     // 오버레이
-    overlay: false
+    overlay: false,
+    // 에디터 
+    showEditor: true
   };
 
   constructor(props) {
@@ -49,6 +53,7 @@ class App extends Component {
     this.logReformatter = this.logReformatter.bind(this)
     this.sendMessage    = this.sendMessage.bind(this)
     this.handleOverlay  = this.handleOverlay.bind(this)
+    this.openEnvEditor  = this.openEnvEditor.bind(this)
   }
 
   async logReducer(ns) {
@@ -83,11 +88,6 @@ class App extends Component {
       window.alert("서버와의 연결이 끊겼습니다.\n\n새로고침 해주세요.");
     }
   }
-
-  // componentWillUpdate(nextProps, nextState) {
-  //   console.error('nextState', nextState);
-  //   console.error('nextProps', nextProps);
-  // }
 
   componentDidMount() {
     let w3c = WebSocket.w3cwebsocket;
@@ -163,11 +163,16 @@ class App extends Component {
     this.setState({ overlay: !! toggle })
   }
 
+  openEnvEditor() {
+    console.log('openEnvEditor')
+  }
+
   render() {
     return (
       <div className="App">
         <GlobalStyle />
         <Overlay overlay={this.state.overlay} />
+        <EnvEditor showEditor={this.state.showEditor} />
         <Header webSocketEvent={this.state.webSocketEvent} />
         <Main>
           <Console 
@@ -178,6 +183,7 @@ class App extends Component {
             terminalAutoCloseSeconds={TERMINAL_AUTO_CLOSE} />
 
           <Sidebar 
+            openEnvEditor={this.openEnvEditor}
             sendMessage={this.sendMessage} 
             fOverlay={this.handleOverlay} />
 
