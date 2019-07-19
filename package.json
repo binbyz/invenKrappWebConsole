@@ -3,18 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
-    "react-scripts": "2.1.8"
+    "react-scripts": "3.0.1"
   },
   "dependencies": {
     "atob": "^2.1.2",
     "btoa": "^1.2.1",
-    "react": "^16.8.5",
+    "react": "^16.8.6",
     "react-addons-update": "^15.6.2",
     "react-custom-scrollbars": "^4.2.1",
-    "react-dom": "^16.8.5",
+    "react-dom": "^16.8.6",
     "react-html-parser": "^2.0.2",
-    "styled-components": "^4.2.0",
-    "websocket": "^1.0.28"
+    "styled-components": "^4.3.2",
+    "websocket": "^1.0.29"
   },
   "scripts": {
     "start": "react-scripts start",
