@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const ConsoleWrap = styled.div`
+export const TerminalWrap = styled.div`
   position: fixed;
   box-sizing: border-box;
   top: 80px;
@@ -14,10 +14,10 @@ export const ConsoleWrap = styled.div`
   z-index: 1000;
   border: 1px solid #003056;
   box-sizing: border-box;
-  display: ${ props => props.overlay ? 'block' : 'none' };
+  display: ${ props => props.showTerminal ? 'block' : 'none' };
 `
 
-export const ConsoleTitleBar = styled.div`
+export const TerminalTitleBar = styled.div`
   line-height: 24px;
   font-size: 14px;
   color: #d1d1d1;
@@ -27,7 +27,7 @@ export const ConsoleTitleBar = styled.div`
   padding: 5px;
 `
 
-export const ConsoleInner = styled.section`
+export const TerminalInner = styled.section`
   box-sizing: border-box;
   font-size: 12px;
   color: #FFF;

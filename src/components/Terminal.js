@@ -4,15 +4,15 @@ import { Scrollbars } from 'react-custom-scrollbars'
 import ProcessBlockIcon from '../assets/load-block-white.svg';
 
 import { 
-  ConsoleWrap,
-  ConsoleTitleBar,
-  ConsoleInner,
+  TerminalWrap,
+  TerminalTitleBar,
+  TerminalInner,
   LogRows,
   ErrorText,
   PlainText
 } from './styles/Termianl.sc'
 
-export default class Console extends PureComponent {
+export default class Terminal extends PureComponent {
   scrollbar
   fCallbackAutoClose
   fCallbackTimer
@@ -45,7 +45,10 @@ export default class Console extends PureComponent {
       let autoCloseTextStyle = { "fontStyle": "italic", "color": "#b7b7b7" }
 
       this.fCallbackAutoClose = (! String(this.props.stdout.stderr).trim().length)
-                                ? () => { this.props.fOverlay(false) }
+                                ? () => { 
+                                    this.props.fOverlay(false) 
+                                    this.props.openTerminal(false)
+                                  }
                                 : null
 
       return logs.map((log, idx) => {
@@ -68,15 +71,15 @@ export default class Console extends PureComponent {
     }
 
     return (
-      <ConsoleWrap overlay={this.props.overlay}>
-        <ConsoleTitleBar
-          icon={ ProcessBlockIcon }>Terminal</ConsoleTitleBar>
-        <ConsoleInner>
+      <TerminalWrap showTerminal={this.props.showTerminal}>
+        <TerminalTitleBar
+          icon={ ProcessBlockIcon }>Terminal</TerminalTitleBar>
+        <TerminalInner>
           <Scrollbars ref={(ref) => { this.scrollbar = ref; }} autoHide autoHideTimeout={2000}>
             { renderLogSplit(this.props.logs) }
           </Scrollbars>
-        </ConsoleInner>
-      </ConsoleWrap>
+        </TerminalInner>
+      </TerminalWrap>
     )
   }
 }

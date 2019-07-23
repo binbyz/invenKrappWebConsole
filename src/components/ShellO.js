@@ -38,6 +38,7 @@ class ShellO extends Component {
               () => {
                 this.props.sendMessage(messageMassage(this.props.data)) 
                 this.props.fOverlay(true)
+                this.props.openTerminal(true)
               }
             }>
               <CommandIcon src={getIconPath(this.props.data)} alt={this.props.data.description} />
@@ -48,7 +49,15 @@ class ShellO extends Component {
 
         {
           (this.props.data.type === SO_TYPE_EDITOR) && (
-            <Command onClick={this.props.openEnvEditor()}>
+            <Command onClick={ 
+                () => {
+                  let clone = Object.assign({}, this.props.data)
+                  clone.command = clone.command.concat('@read')
+
+                  this.props.sendMessage(messageMassage(clone))
+                  this.props.openEnvEditor()
+                }
+              }>
               <CommandIcon src={getIconPath(this.props.data)} alt={this.props.data.description} />
               <Text>{this.props.data.description}</Text>
             </Command>

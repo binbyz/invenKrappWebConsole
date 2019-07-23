@@ -16,7 +16,7 @@ export const WS_CONNECT_PATH = '/'
 export const SO_TYPE_CMD = 'cmd'
 export const SO_TYPE_LINK = 'link'
 export const SO_TYPE_EDITOR = 'editor'
-export const TERMINAL_AUTO_CLOSE = 1400 // milliseconds
+export const TERMINAL_AUTO_CLOSE = 2000 // milliseconds
 
 export const SIDEBAR_EXECUTION_LIST = [
   {
@@ -45,7 +45,7 @@ export const SIDEBAR_EXECUTION_LIST = [
   },
   {
     type       : SO_TYPE_EDITOR,
-    namespace  : "vagrant.inven.env",
+    namespace  : "vagrant.inven.editor",
     description: "Edit .env",
     command    : "dotenv"
   },

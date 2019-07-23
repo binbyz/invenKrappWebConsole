@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import WebSocket from 'websocket';
+import React, { Component } from 'react'
+import WebSocket from 'websocket'
 
-import Header from './Header';
-import Sidebar from './Sidebar';
-import Console from './Console'
-import LogContainer from './LogContainer';
-import LogReformatter from './LogReformatter';
-import update from 'react-addons-update';
+import Header from './Header'
+import Sidebar from './Sidebar'
+import Terminal from './Terminal'
+import LogContainer from './LogContainer'
+import LogReformatter from './LogReformatter'
+import update from 'react-addons-update'
 
 import EnvEditor from './EnvEditor'
 
@@ -17,7 +17,7 @@ import {
   WS_CONNECT_PATH,
   APP_LOG_MAX_LINE,
   TERMINAL_AUTO_CLOSE
-} from '../Constants';
+} from '../Constants'
 
 import {
   GlobalStyle,
@@ -27,8 +27,8 @@ import {
 } from './styles/Global.sc';
 
 class App extends Component {
-  client; // websocket clinets
-  _processHideTimer;
+  client // websocket clinets
+  _processHideTimer
   state = {
     // 서버로 데이터를 요청 또는 전송 받는 중일 때
     iconVisual: false,
@@ -42,8 +42,12 @@ class App extends Component {
     stdout: {},
     // 오버레이
     overlay: false,
+    // 터미널
+    showTerminal: false,
     // 에디터 
-    showEditor: true
+    showEditor: false,
+    // dotenv 텍스트 내용
+    dotenvText: ''
   };
 
   constructor(props) {
@@ -54,6 +58,7 @@ class App extends Component {
     this.sendMessage    = this.sendMessage.bind(this)
     this.handleOverlay  = this.handleOverlay.bind(this)
     this.openEnvEditor  = this.openEnvEditor.bind(this)
+    this.openTerminal   = this.openTerminal.bind(this)
   }
 
   async logReducer(ns) {
@@ -90,42 +95,42 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let w3c = WebSocket.w3cwebsocket;
+    let w3c = WebSocket.w3cwebsocket
     this.client = new w3c(`${WS_CONNECT_PROTOCOL}://${WS_CONNECT_HOST}:${WS_CONNECT_PORT}${WS_CONNECT_PATH}`);
 
     this.client.onerror = (event) => {
       this.setState({
         webSocketEvent: event
-      });
-    };
+      })
+    }
 
     this.client.onclose = (event) => {
       this.setState({
         webSocketEvent: event
-      });
-    };
+      })
+    }
 
     this.client.onopen = (event) => {
       this.setState({
         webSocketEvent: event
-      });
-    };
+      })
+    }
 
     this.client.onmessage = async (event) => {
-      this.setState({ iconVisual: true });
+      this.setState({ iconVisual: true })
 
       if (typeof event === 'object' && 'data' in event && typeof event.data === 'string') {
-        let recv = JSON.parse(atob(atob(event.data)));
+        let recv = JSON.parse(atob(atob(event.data)))
 
         // nginx 로그
         if (recv.namespace === 'nginx.access' || recv.namespace === 'nginx.error') {
-          let t = recv.namespace.split('.');
+          let t = recv.namespace.split('.')
 
           // reduce log
-          await this.logReducer(t[1]);
+          await this.logReducer(t[1])
 
           // reform log message
-          recv.chunk = await this.logReformatter(recv.chunk);
+          recv.chunk = await this.logReformatter(recv.chunk)
 
           this.setState({
             nginx: update(this.state.nginx, {
@@ -142,6 +147,10 @@ class App extends Component {
             })
           })
         } 
+        // edit env
+        else if (recv.namespace === 'vagrant.inven.editor') {
+          this.setState({ "dotenvText": decodeURIComponent(recv.stdout) })
+        }
         // 알 수 없는 메세지
         else {
           console.error(`Unknown Namespace: ${recv.namespace}`, recv)
@@ -150,40 +159,61 @@ class App extends Component {
 
 
       if (this._processHideTimer) {
-        clearTimeout(this._processHideTimer);
+        clearTimeout(this._processHideTimer)
       }
 
       this._processHideTimer = setTimeout(() => {
-        this.setState({ iconVisual: false });
-      }, 1300);
-    };
+        this.setState({ iconVisual: false })
+      }, 1300)
+    }
   }
 
+  // TODO: 메서드명 변경..
   handleOverlay(toggle) {
-    this.setState({ overlay: !! toggle })
+    this.setState({ "overlay": !! toggle })
   }
 
   openEnvEditor() {
-    console.log('openEnvEditor')
+    this.setState({ "dotenvText": "(loading..)" })
+    this.setState({ "showEditor": !this.state.showEditor })
+  }
+
+  openTerminal(toggle = true) {
+    this.setState({ "showTerminal": !! toggle })
+  }
+
+  toggler(target, toggle = true) {
+    this.setState({
+      [target]: !! toggle
+    })
   }
 
   render() {
     return (
       <div className="App">
         <GlobalStyle />
+
         <Overlay overlay={this.state.overlay} />
-        <EnvEditor showEditor={this.state.showEditor} />
+        <EnvEditor 
+          showEditor={this.state.showEditor}
+          fOverlay={this.handleOverlay}
+          dotenvText={this.state.dotenvText}
+        />
+
         <Header webSocketEvent={this.state.webSocketEvent} />
+
         <Main>
-          <Console 
+          <Terminal 
             stdout={this.state.stdout} 
             logs={this.state.consoleLogs} 
             fOverlay={this.handleOverlay}
-            overlay={this.state.overlay} 
+            openTerminal={this.openTerminal}
+            showTerminal={this.state.showTerminal}
             terminalAutoCloseSeconds={TERMINAL_AUTO_CLOSE} />
 
           <Sidebar 
             openEnvEditor={this.openEnvEditor}
+            openTerminal={this.openTerminal}
             sendMessage={this.sendMessage} 
             fOverlay={this.handleOverlay} />
 
@@ -204,8 +234,8 @@ class App extends Component {
           </Content>
         </Main>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
