@@ -53,6 +53,13 @@ export const BttnClose = styled(ActionButtons)`
   float: left;
 `
 
+export const StatusMessage = styled(ActionButtons)`
+  float: left;
+  color: #FFF;
+  line-height: 32px;
+  margin-left: 10px;
+`
+
 export const BttnSaveClose = styled(ActionButtons)`
   float: right;
   margin-right: 5px;

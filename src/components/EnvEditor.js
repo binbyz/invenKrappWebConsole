@@ -1,6 +1,11 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import AceEditor from 'react-ace'
 import Draggable from 'react-draggable'
+
+import {
+  SIDEBAR_EXECUTION_LIST,
+  SO_TYPE_EDITOR
+} from '../Constants'
 
 import {
   EnvEditorWrap,
@@ -9,23 +14,32 @@ import {
   BttnClose,
   BttnSaveClose,
   TitleBar,
-  Button
+  Button,
+  StatusMessage
 } from './styles/EnvEditor.sc'
 import idotenv from '../assets/dotenv.png'
+
+import {
+  messageMassage
+} from '../utils';
 
 import "brace/mode/ruby";
 import "brace/theme/github";
 
-export default class EnvEditor extends PureComponent {
+export default class EnvEditor extends Component {
+  data
   state = {
-    "activeDrags": 0
+    "activeDrags": 0,
+    "statusMessage": ""
   }
 
   constructor(props) {
     super(props)
 
+    this.data = SIDEBAR_EXECUTION_LIST.find( v => v.type === SO_TYPE_EDITOR)
     this.onStart = this.onStart.bind(this)
     this.onStop = this.onStop.bind(this)
+    this.saveData = this.saveData.bind(this)
   }
 
   onStart() {
@@ -36,6 +50,16 @@ export default class EnvEditor extends PureComponent {
   onStop() {
     let t = this.state.activeDrags
     this.setState({ "activeDrags": --t })
+  }
+
+  saveData(callback = null) {
+    let clone = Object.assign({}, this.data)
+    clone.command = clone.command.concat('@write')
+
+    this.props.sendMessage(
+      messageMassage(clone), 
+      typeof callback === 'function' ? callback : null
+    )
   }
 
   render() {
@@ -55,8 +79,6 @@ export default class EnvEditor extends PureComponent {
             mode="ruby"
             theme="github"
             name="edtenv"
-            onLoad={this.onLoad}
-            onChange={this.onChange}
             fontSize={13}
             showPrintMargin={true}
             showGutter={true}
@@ -74,13 +96,25 @@ export default class EnvEditor extends PureComponent {
           />
         <EnvEditorBottom>
           <BttnClose>
-            <Button>Close</Button>
+            <Button onClick={ () => this.props.openEnvEditor(false) }>Close</Button>
           </BttnClose>
+          <StatusMessage>{this.state.statusMessage}</StatusMessage>
           <BttnApply>
-            <Button>Apply</Button>
+            <Button onClick={ () => {
+                this.saveData(() => {
+                  this.setState({ "statusMessage": "saved !!" })
+                }) 
+              }
+            }>Apply</Button>
           </BttnApply>
           <BttnSaveClose>
-            <Button>Save Close</Button>
+            <Button onClick={ 
+              () => {
+                this.saveData(() => {
+                  this.props.openEnvEditor(false)
+                })
+              } 
+            }>Save Close</Button>
           </BttnSaveClose>
         </EnvEditorBottom>
       </EnvEditorWrap>

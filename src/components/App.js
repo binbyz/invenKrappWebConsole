@@ -121,6 +121,8 @@ class App extends Component {
 
       if (typeof event === 'object' && 'data' in event && typeof event.data === 'string') {
         let recv = JSON.parse(atob(atob(event.data)))
+        recv.stdout = decodeURIComponent(recv.stdout)
+        recv.stderr = decodeURIComponent(recv.stderr)
 
         // nginx 로그
         if (recv.namespace === 'nginx.access' || recv.namespace === 'nginx.error') {
@@ -149,7 +151,7 @@ class App extends Component {
         } 
         // edit env
         else if (recv.namespace === 'vagrant.inven.editor') {
-          this.setState({ "dotenvText": decodeURIComponent(recv.stdout) })
+          this.setState({ "dotenvText": recv.stdout })
         }
         // 알 수 없는 메세지
         else {
@@ -194,10 +196,13 @@ class App extends Component {
         <GlobalStyle />
 
         <Overlay overlay={this.state.overlay} />
+
         <EnvEditor 
+          sendMessage={this.sendMessage}
           showEditor={this.state.showEditor}
-          fOverlay={this.handleOverlay}
+          openEnvEditor={this.openEnvEditor}
           dotenvText={this.state.dotenvText}
+          fOverlay={this.handleOverlay}
         />
 
         <Header webSocketEvent={this.state.webSocketEvent} />
