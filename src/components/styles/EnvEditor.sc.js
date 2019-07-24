@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const EnvEditorWrap = styled.div`
   position: fixed;
-  box-sizing: border-box;
   top: 80px;
   left: 645px;
   width: 673px;
@@ -11,6 +10,7 @@ export const EnvEditorWrap = styled.div`
   z-index: 1000;
   border: 1px solid #003056;
   box-sizing: border-box;
+  box-shadow: rgba(0, 0, 0, .2) 0 0 9px 3px;
   display: ${ props => props.showEditor ? 'block' : 'none' };
 `
 
@@ -22,4 +22,5 @@ export const TitleBar = styled.div`
   background-size: 20px 20px;
   text-indent: 30px;
   padding: 5px;
+  cursor: move;
 `

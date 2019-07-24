@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const TerminalWrap = styled.div`
   position: fixed;
-  box-sizing: border-box;
   top: 80px;
   left: 595px;
   width: 40%;
