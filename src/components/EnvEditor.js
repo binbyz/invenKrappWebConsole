@@ -23,20 +23,25 @@ import {
   messageMassage
 } from '../utils';
 
-import "brace/mode/ruby";
-import "brace/theme/github";
+import "brace/mode/ruby"
+import "brace/theme/github"
+import 'brace/ext/searchbox'
 
 export default class EnvEditor extends Component {
   data
   state = {
     "activeDrags": 0,
-    "statusMessage": ""
+    "statusMessage": "",
+    "newValue": ""
   }
 
   constructor(props) {
     super(props)
 
     this.data = SIDEBAR_EXECUTION_LIST.find( v => v.type === SO_TYPE_EDITOR)
+    this.aceEditor = React.createRef()
+    this.diffValue = this.props.dotenvText
+
     this.onStart = this.onStart.bind(this)
     this.onStop = this.onStop.bind(this)
     this.saveData = this.saveData.bind(this)
@@ -68,11 +73,19 @@ export default class EnvEditor extends Component {
       "onStop": this.onStop
     }
 
+    const onChange = (newValue) => {
+      this.setState({
+        "statusMessage": "[!] Not Saved",
+        "newValue": newValue
+      })
+    }
+
     return (
       <Draggable handle="#handleMoveable" {...dragHandlers}>
         <EnvEditorWrap showEditor={this.props.showEditor}>
           <TitleBar id="handleMoveable" icon={idotenv}>.env editor</TitleBar>
           <AceEditor
+            ref={this.aceEditor}
             width="670px"
             height="700px"
             placeholder=""
@@ -83,14 +96,18 @@ export default class EnvEditor extends Component {
             showPrintMargin={true}
             showGutter={true}
             highlightActiveLine={true}
-            value={this.props.dotenvText}
+            value={this.state.newValue || this.props.dotenvText}
             setOptions={
               {
-                enableBasicAutocompletion: true,
-                enableLiveAutocompletion: true,
-                enableSnippets: false,
                 showLineNumbers: true,
                 tabSize: 2,
+              }
+            }
+            editorProps={{
+              $blockScrolling: Infinity
+            }}
+            onChange={ (newValue) => {
+                onChange(newValue)
               }
             }
           />
