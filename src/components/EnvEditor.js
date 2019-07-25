@@ -57,7 +57,7 @@ export default class EnvEditor extends Component {
     this.setState({ "activeDrags": --t })
   }
 
-  saveData(callback = null) {
+  saveData(callback = () => { this.setState({ "statusMessage": "Saved !!" }) }) {
     let clone = Object.assign({}, this.data)
     clone.command = clone.command.concat('@write')
     clone.extra = {
@@ -113,6 +113,11 @@ export default class EnvEditor extends Component {
                 onChange(newValue)
               }
             }
+            commands={[{
+              name: 'apply',
+              bindKey: { win: 'Ctrl-s' },
+              exec: () => { this.saveData() }
+            }]}
           />
         <EnvEditorBottom>
           <BttnClose>
@@ -120,11 +125,8 @@ export default class EnvEditor extends Component {
           </BttnClose>
           <StatusMessage>{this.state.statusMessage}</StatusMessage>
           <BttnApply>
-            <Button onClick={ () => {
-                this.saveData(() => {
-                  this.setState({ "statusMessage": "saved !!" })
-                }) 
-              }
+            <Button onClick={ 
+              () => { this.saveData() }
             }>Apply</Button>
           </BttnApply>
           <BttnSaveClose>
