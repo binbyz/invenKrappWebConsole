@@ -60,6 +60,9 @@ export default class EnvEditor extends Component {
   saveData(callback = null) {
     let clone = Object.assign({}, this.data)
     clone.command = clone.command.concat('@write')
+    clone.extra = {
+      "editorValue": encodeURIComponent(this.state.newValue || this.props.dotenvText)
+    }
 
     this.props.sendMessage(
       messageMassage(clone), 
